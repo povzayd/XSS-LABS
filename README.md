@@ -1,4 +1,4 @@
-# 🔥 XSS LABS - Enhanced UI
+# 🔥 XSS LABS 
 
 A modern, interactive playground to practice and understand various types of **Cross-Site Scripting (XSS)** vulnerabilities. This lab is designed with a sleek cyberpunk-inspired UI to make learning web security more immersive and engaging.
 
