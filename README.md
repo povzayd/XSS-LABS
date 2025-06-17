@@ -3,7 +3,7 @@
 A modern, interactive playground to practice and understand various types of **Cross-Site Scripting (XSS)** vulnerabilities. This lab is designed with a sleek cyberpunk-inspired UI to make learning web security more immersive and engaging.
 
 🌐 **Live Demo:**  
-👉 [XSS-LAB:01](https://povzayd.github.io/XSS-LABS/LABS/lab1.html)
+👉 [XSS-LABS](https://povzayd.github.io/XSS-LABS/)
 
 ---
 
@@ -26,7 +26,7 @@ A modern, interactive playground to practice and understand various types of **C
 ## 📘 How to Use
 
 1. **Visit the Live Page**  
-   👉 [XSS-LAB:01](https://povzayd.github.io/XSS-LABS/LABS/lab1.html)
+   👉 [XSS-LABS](https://povzayd.github.io/XSS-LABS/)
 
 2. **Try Input-Based XSS Attacks**
 
@@ -56,7 +56,7 @@ A modern, interactive playground to practice and understand various types of **C
 ✅ **Current Lab:**
 
 * Reflected, Stored, and DOM-based XSS demos.                                                                                     
-Access Now : [XSS-LAB:01](https://povzayd.github.io/XSS-LABS/LABS/lab1.html)
+Access Now : [XSS-LABS](https://povzayd.github.io/XSS-LABS/)
 
 🧪 **Coming Soon:**
 
@@ -68,4 +68,5 @@ Access Now : [XSS-LAB:01](https://povzayd.github.io/XSS-LABS/LABS/lab1.html)
 
 Stay tuned 🐢 
 ---
+> Feel free to 
 ---
