@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>XSS Lab - Level 2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --highlight: #ff5c8a;
+      --primary: #58a6ff;
+      --text: #e6edf3;
+      --font: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    input, button {
+      padding: 0.8em;
+      margin-top: 1em;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      font-family: var(--font);
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: var(--card-bg);
+      color: var(--text);
+    }
+
+    button {
+      background: var(--primary);
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .box {
+      background: var(--card-bg);
+      padding: 1em;
+      border-left: 5px solid var(--highlight);
+      margin: 1em 0;
+      border-radius: 10px;
+      word-break: break-word;
+    }
+
+    #xss-popup {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      color: #0f0;
+      border: 2px solid #0f0;
+      padding: 1.5em 2em;
+      font-size: 1.1em;
+      font-family: 'JetBrains Mono', monospace;
+      z-index: 9999;
+      box-shadow: 0 0 15px #0f0;
+      border-radius: 12px;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -10px); }
+      to   { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    code {
+      background: #222;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 XSS Lab — Level 2 :)</h1>
+
+  <!-- Reflected XSS -->
+  <h2>🔍 Reflected XSS</h2>
+  <form method="GET" action="">
+    <input type="text" name="query" placeholder='Try: "><img src=x onerror=alert(1)>' />
+    <button type="submit">Send</button>
+  </form>
+  <div class="box">
+    <strong>Response:</strong>
+    <div id="reflected-output"></div>
+  </div>
+
+  <!-- StoresD -->
+  <h2>💬 Stored XSS</h2>
+  <form id="commentForm">
+    <input type="text" id="commentInput" placeholder='Your comment with injection' />
+    <button type="submit">Submit</button>
+  </form>
+  <div id="commentSection">
+    <h3>Comments</h3>
+  </div>
+<!-- add popup too not rely on real alert-->
+  <h2>🧠 DOM-based XSS</h2>
+  <div class="box" id="dom-box">No input yet.</div>
+
+  <div id="xss-popup"></div>
+
+  <script>
+    // ==== Reflected XSS ====
+    const q = new URLSearchParams(location.search).get("query") || "";
+
+    function filterReflected(input) {
+      return input.replace(/<script.*?>.*?<\/script>/gi, '[blocked script]');
+    }
+
+    document.getElementById("reflected-output").innerHTML = filterReflected(q);
+
+
+    const commentInput = document.getElementById("commentInput");
+    const commentForm = document.getElementById("commentForm");
+    const commentSection = document.getElementById("commentSection");
+    let comments = JSON.parse(localStorage.getItem("lvl2_comments")) || [];
+
+    function filterStored(input) {
+      return input.replace(/<script.*?>.*?<\/script>/gi, '[blocked script]');
+    }
+
+    function renderComments() {
+      commentSection.innerHTML = "<h3>Comments</h3>";
+      comments.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "box";
+        div.innerHTML = filterStored(c);
+        commentSection.appendChild(div);
+      });
+    }
+
+    commentForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const comment = commentInput.value.trim();
+      if (comment) {
+        comments.push(comment);
+        localStorage.setItem("lvl2_comments", JSON.stringify(comments));
+        renderComments();
+        commentInput.value = "";
+      }
+    });
+
+    renderComments();
+
+      const domInput = decodeURIComponent(location.hash.slice(1));
+    if (domInput) {
+      document.getElementById("dom-box").innerHTML = domInput;
+    }
+
+  
+    window.alert = function(msg) {
+      const popup = document.getElementById("xss-popup");
+      popup.innerHTML = `
+        <strong>⚠ XSS Triggered!</strong><br>
+        <code>${msg}</code>
+      `;
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 4000);
+      console.log("XSS alert triggered:", msg);
+    };
+  </script>
+</body>
+</html>
