@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -169,3 +169,238 @@
 </body>
 </html>
                                          
+ -->
+
+ <!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>XSS LABS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark-bg: #0a0a0a;
+      --light-bg: #f3f3f3;
+      --infrared-bg: #140000;
+      --dark-text: #f8f8f2;
+      --light-text: #111;
+      --infrared-text: #ff0055;
+      --accent: #ff0033;
+      --card-bg: rgba(0,0,0,0.6);
+    }
+    [data-theme="dark"] { background: var(--dark-bg); color: var(--dark-text); }
+    [data-theme="light"] { background: var(--light-bg); color: var(--light-text); }
+    [data-theme="infrared"] { background: var(--infrared-bg); color: var(--infrared-text); }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Gradient Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: linear-gradient(120deg, #0f0f0f, #1c1c1c, #0f0f0f);
+      background-size: 200% 200%;
+      animation: bgAnim 10s ease infinite;
+    }
+    @keyframes bgAnim {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .theme-toggle-container {
+      position: fixed;
+      top: 1em;
+      right: 1em;
+      z-index: 100;
+      perspective: 800px;
+    }
+    .theme-toggle {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 0.6em 1.2em;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono';
+      font-size: 1em;
+      transition: transform 0.3s ease, background 0.3s;
+      box-shadow: 0 0 6px var(--accent);
+    }
+    .theme-toggle:hover {
+      transform: rotateY(20deg) scale(1.03);
+      background: var(--accent);
+      color: black;
+    }
+
+    #glitch-title {
+      font-size: 2.4em;
+      text-align: center;
+      margin-top: 25vh;
+      overflow: hidden;
+      line-height: 1.2;
+      text-shadow: 0 0 5px var(--accent);
+    }
+    .glitch-char {
+      display: inline-block;
+      animation: reveal 0.5s ease-out forwards;
+    }
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .loading-bar {
+      width: 300px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 1em auto;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .loading-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(red, orange, yellow);
+      animation: fillAnim 4s ease-in-out infinite;
+    }
+    @keyframes fillAnim {
+      0%, 100% { width: 0; }
+      50% { width: 100%; }
+    }
+
+    .description {
+      margin: 2em auto;
+      max-width: 700px;
+      background: var(--card-bg);
+      padding: 1em;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      line-height: 1.6;
+    }
+
+    .launch-button {
+      display: block;
+      margin: 1.5em auto;
+      padding: 0.8em 1.8em;
+      font-size: 1.2em;
+      background: var(--accent);
+      color: black;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s;
+    }
+    .launch-button:hover {
+      transform: scale(1.05);
+      background: #fff;
+    }
+
+    .social-links {
+      text-align: center;
+      margin-top: 2em;
+    }
+    .social-links a {
+      margin: 0 10px;
+      color: var(--accent);
+      font-size: 1.1em;
+      transition: transform 0.3s, color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .social-links a:hover {
+      transform: scale(1.15);
+      color: var(--dark-text);
+      text-shadow: 0 0 8px var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      #glitch-title { font-size: 1.8em; margin-top: 20vh; }
+      .description { font-size: 0.9em; }
+      .loading-bar { width: 80%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="theme-toggle-container">
+    <button class="theme-toggle" onclick="switchTheme()">
+      <span id="themeIcon">🌑</span> Switch Mode
+    </button>
+  </div>
+
+  <h1 id="glitch-title" aria-label="XSS LABS :)"></h1>
+  <div class="loading-bar"><div class="loading-fill"></div></div>
+
+  <a href="https://povzayd.github.io/XSS-LABS/LABS/lab0.html" target="_blank">
+    <button class="launch-button">🚀 Launch The Lab</button>
+  </a>
+
+  <div class="description">
+    <p><strong>Welcome to XSS LABS</strong> — a hacker‑style playground to explore real‑world XSS vulnerabilities in a safe environment.</p>
+    <p>🔒 Hands‑on challenges, payload execution simulation, and real‑time analysis for learners, pentesters, and security researchers.</p>
+    <p>🚀 <strong>Future roadmap:</strong> DOM‑based XSS, CSP bypasses, JS filter evasion, browser exploits, CTF modules and full write‑ups.</p>
+  </div>
+
+  <div class="social-links">
+    <div>
+      <strong>👨💻 Unass</strong><br/>
+      <a href="https://github.com/una55" target="_blank">GitHub</a>
+      <a href="https://instagram.com/mohammad_unass.475" target="_blank">Instagram</a>
+      <a href="https://youtube.com/@mohdunass" target="_blank">YouTube</a>
+      <a href="https://linkedin.com/in/unass" target="_blank">LinkedIn</a>
+    </div>
+    <div style="margin-top:1em;">
+      <strong>👨💻 Zaid</strong><br/>
+      <a href="https://github.com/povzayd" target="_blank">GitHub</a>
+      <a href="https://instagram.com/povzayd" target="_blank">Instagram</a>
+      <a href="https://youtube.com/@povzayd" target="_blank">YouTube</a>
+      <a href="https://linkedin.com/in/0zaid" target="_blank">LinkedIn</a>
+      <a href="https://x.com/povzayd" target="_blank">X</a>
+    </div>
+  </div>
+
+  <script>
+    function switchTheme(){
+      const themes = ['dark', 'light', 'infrared'];
+      const icons = ['🌑', '☀', '👁'];
+      let cur = document.documentElement.getAttribute('data-theme');
+      let nxt = themes[(themes.indexOf(cur)+1)%themes.length];
+      document.documentElement.setAttribute('data-theme', nxt);
+      document.getElementById('themeIcon').textContent = icons[(themes.indexOf(cur)+1)%themes.length];
+    }
+
+    const titleBase = "🧠 XSS LABS";
+    const gl = document.getElementById('glitch-title');
+    let i = 0;
+    function reveal() {
+      gl.innerHTML = '';
+      for (let j = 0; j < i && j < titleBase.length; j++) {
+        const s = document.createElement('span');
+        s.textContent = titleBase[j];
+        s.className = 'glitch-char';
+        gl.appendChild(s);
+      }
+      if (i <= titleBase.length) {
+        i++;
+        setTimeout(reveal, 100);
+      } else {
+        i = 0;
+        setTimeout(reveal, 4000);
+      }
+    }
+    reveal();
+  </script>
+</body>
+</html>
+            
