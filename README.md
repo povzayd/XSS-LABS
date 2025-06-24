@@ -130,5 +130,5 @@ We built this lab to help others **learn, break, and secure** — because the be
 <!------completed readme file rn!! all good till now?>>>>>-------->
 
 ---
-This project is licensed under the [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]([./LICENSE](https://github.com/povzayd/XSS-LABS#MIT-1-ov-file)) — feel free to use, modify, and share with proper attribution.
+This project is licensed under the [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/povzayd/XSS-LABS#MIT-1-ov-file) — feel free to use, modify, and share with proper attribution.
 ---
