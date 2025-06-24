@@ -26,9 +26,11 @@ It usually happens when a website:
    ```html
    <script>alert('XSS')</script>
    ```
+   
 and get xss triggered!
+
 ---
-What is **XSS-LABS**?
+### What is **XSS-LABS**?
 Absolutely! Here's a more **detailed and structured description** of your XSS Lab project that includes lab breakdowns, learning goals, and technical depth — ideal for a **README**, a **project report**, or a **homepage description**:
 
 ---
@@ -125,6 +127,7 @@ This project was crafted with ⚔️ passion and 💻 precision by:
 We built this lab to help others **learn, break, and secure** — because the best way to defend the web is to understand how it’s broken.
 
 > 🙏 Special thanks to the community of web security explorers and learners who inspire us to push boundaries, ask better questions, and share knowledge freely.
+<!------completed readme file rn!! all good till now?>>>>>-------->
 
 ---
 
