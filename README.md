@@ -30,10 +30,6 @@ It usually happens when a website:
 and get xss triggered!
 
 ---
-### What is **XSS-LABS**?
-Absolutely! Here's a more **detailed and structured description** of your XSS Lab project that includes lab breakdowns, learning goals, and technical depth — ideal for a **README**, a **project report**, or a **homepage description**:
-
----
 
 ## 🧪 XSS LAB – Complete XSS Vulnerability Training Ground
 
